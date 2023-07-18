@@ -9,10 +9,20 @@ final class Miscapu
     const MINIMUM_ELEMENTOR_VERSION     =   '2.0.0';
     const MINIMUM_PHP_VERSION           =   '7.0';
 
+    private static $_instance           =   null;
+
+    public static function instance(){
+        if ( is_null( self::$_instance ) ){
+            self::$_instance    =    new self();
+        }
+        return self::$_instance;
+    }
+
     public function __construct()
     {
         add_action( 'init', [ $this, 'i18n' ] );
         add_action( 'plugins_loaded', [ $this, 'init' ] );
+        add_action( 'elementor/widgets/register', [ $this, 'register_hello_world_widget' ] );
     }
 
 
@@ -92,5 +102,12 @@ final class Miscapu
         );
         printf( '<div class="notice notice-error is-dismissible"><p>%1$s</p></div>', $message );
     }
+
+
+    public function register_hello_world_widget( $widgets_manager ){
+        require_once __DIR__.'/widgets/hello-world-widget.php';
+        $widgets_manager->register( new \Elementor_Hello_World_Widget() );
+    }
 }
-new Miscapu();
+
+Miscapu::instance();
