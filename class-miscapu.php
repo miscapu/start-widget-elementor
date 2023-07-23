@@ -23,6 +23,7 @@ final class Miscapu
         add_action( 'init', [ $this, 'i18n' ] );
         add_action( 'plugins_loaded', [ $this, 'init' ] );
         add_action( 'elementor/widgets/register', [ $this, 'register_hello_world_widget' ] );
+        add_filter( 'elementor/utils/get_placeholder_image_src', [ $this, 'custom_elementor_placeholder_image' ] );
     }
 
 
@@ -107,9 +108,20 @@ final class Miscapu
     public function register_hello_world_widget( $widgets_manager ){
         require_once __DIR__.'/widgets/hello-world-widget.php';
         require_once __DIR__.'/widgets/cta-widget.php';
+        require_once __DIR__.'/widgets/about-widget.php';
 
         $widgets_manager->register( new \Elementor_Hello_World_Widget() );
         $widgets_manager->register( new \Elementor_Cta_Widget());
+        $widgets_manager->register( new \Elementor_About_Widget() );
+    }
+
+    public function custom_elementor_placeholder_image()
+    {
+//        return plugins_url( 'plugins/elementor/assets/images/placeholder.png', __FILE__ );
+
+        return plugins_url().'/elementor/assets/images/placeholder.png';
+
+//        return 'http://localhost:8888/Projetos/WordPress/Carousel/2/wp-content/plugins/miscapu/assets/img/about-1.jpg';
     }
 }
 

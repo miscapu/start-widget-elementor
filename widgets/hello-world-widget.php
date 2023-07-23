@@ -55,7 +55,7 @@ class Elementor_Hello_World_Widget extends \Elementor\Widget_Base
             [
                 'label'     =>  esc_html__( 'Title', 'miscapu' ),
                 'type'      =>  \Elementor\Controls_Manager::TEXTAREA,
-                'default'   =>  esc_html__( 'Hello World', 'miscapu' )
+                'default'   =>  plugin_dir_path( __DIR__ ). '/assets/css/stylemiscapu.css', 'miscapu'
             ]
         );
 
